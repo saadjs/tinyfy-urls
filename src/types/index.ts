@@ -8,5 +8,5 @@ export type FormProps = {
   slug?: string;
 };
 
-type TableRow = [string, string];
+type TableRow = [string, string, string];
 export type TableProps = { rows: TableRow[] };

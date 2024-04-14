@@ -20,8 +20,10 @@ app.use(logger());
 app.use("/favicon.ico", serveStatic({ path: "./public/favicon.ico" }));
 
 async function getTableData() {
-  const data = await client.queryArray("SELECT url, slug FROM urls");
-  const rows = data.rows as [string, string][];
+  const data = await client.queryArray(
+    "SELECT url, slug, clicks FROM urls ORDER BY created_at DESC",
+  );
+  const rows = data.rows as [string, string, string][];
   return rows;
 }
 
@@ -50,6 +52,10 @@ app.get("/:slug", async (c) => {
     );
   }
   const url = data.rows[0][0] as string;
+  await client.queryArray(
+    `UPDATE urls SET clicks = clicks + 1 WHERE slug = $1`,
+    [slug],
+  );
   return c.redirect(url);
 });
 
@@ -82,7 +88,7 @@ app.post("/", async (c) => {
       [slug],
     );
     if (existing.rows.length > 0) {
-      throw new Error("Slug already exists");
+      throw new Error("😱 Slug already taken!");
     }
 
     await client.queryArray(

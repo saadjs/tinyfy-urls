@@ -13,13 +13,9 @@ export const Table = ({ rows }: TableProps) => {
     rows.map((row) =>
       html`
           <tr>
-            <td>${row[0]}</td>
-            <td><a href="http://localhost:8000/${
-        row[1]
-      }" target="_blank" referredpolicy="no-referred" />http://localhost:8000/${
-        row[1]
-      }</td>
-            <td>0</td>
+            <td><a href="${row[0]}" target="_blank"/>${row[0]}</td>
+            <td><a href="${row[1]}" target="_blank"/>${row[1]}</td>
+            <td>${row[2]}</td>
           </tr>
         `
     )
