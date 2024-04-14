@@ -1,0 +1,12 @@
+{
+  "tasks": {
+    "start": "deno run --allow-net --allow-read --allow-env src/main.tsx"
+  },
+  "compilerOptions": {
+    "jsx": "precompile",
+    "jsxImportSource": "hono/jsx"
+  },
+  "imports": {
+    "hono/jsx/jsx-runtime": "https://deno.land/x/hono@v4.2.4/jsx/jsx-runtime.ts"
+  }
+}
