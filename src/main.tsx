@@ -11,11 +11,30 @@ import { Form, Layout, Table } from "./components/index.tsx";
 const env = await load();
 const PG_URL = env["PG_URL"];
 
+if (!PG_URL) {
+  console.error("PG_URL is required");
+  Deno.exit(1);
+}
+
 const client = new Client(PG_URL);
+console.log("Connecting to database...");
 await client.connect();
+console.log("Connected to database?", client.connected);
 
 const app = new Hono();
 
+app.use(async (c, next) => {
+  try {
+    await next();
+  } catch (e) {
+    console.error(e);
+    return c.html(
+      <Layout title="Error!">
+        <p>🚨 Something went wrong!</p>
+      </Layout>,
+    );
+  }
+});
 app.use(logger());
 app.use("/favicon.ico", serveStatic({ path: "./public/favicon.ico" }));
 
@@ -96,7 +115,7 @@ app.post("/", async (c) => {
       [url, slug],
     );
 
-    const shortUrl = `http://localhost:8000/${slug}`;
+    const shortUrl = `https://tinyfy.xyz/${slug}`;
 
     return c.html(
       <>
