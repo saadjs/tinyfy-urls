@@ -17,7 +17,7 @@ export const Layout = ({ title, children }: PropsWithChildren<LayoutProps>) =>
     </head>
     <body>
       <div>
-        <h3>Tinyfy: Making Links Littler and Lives Easier!</h3>
+        <h3>Tinyfy: Link Less, Live More!</h3>
         ${children}
       </div>
       ${<Footer />}
