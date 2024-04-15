@@ -8,7 +8,7 @@ import {
 } from "https://deno.land/x/hono@v4.2.4/middleware.ts";
 import { Client } from "https://deno.land/x/postgres@v0.19.3/mod.ts";
 import { Hono } from "https://deno.land/x/hono@v4.2.4/mod.ts";
-import { Fragment, jsx } from "https://deno.land/x/hono@v3.11.7/middleware.ts";
+import { Fragment, jsx } from "https://deno.land/x/hono@v4.2.4/middleware.ts";
 import * as nanoid from "https://deno.land/x/nanoid@v3.0.0/mod.ts";
 import { Form, Layout, Table } from "./components/index.tsx";
 
@@ -33,7 +33,7 @@ app.use(async (c, next) => {
   } catch (e) {
     console.error(e);
     return c.html(
-      <Layout title="Error!">
+      <Layout title="Tinify - Error!">
         <p>🚨 Something went wrong!</p>
       </Layout>,
     );
@@ -53,7 +53,7 @@ async function getTableData() {
 app.get("/", async (c) => {
   return c.html(
     <>
-      <Layout title="Hello Deno!">
+      <Layout title="Tinyfy - Home">
         <Form />
         <Table rows={await getTableData()} />
       </Layout>
@@ -69,7 +69,7 @@ app.get("/:slug", async (c) => {
   );
   if (data.rows.length === 0) {
     return c.html(
-      <Layout title="Not Found!">
+      <Layout title="Tinyfy - Page Not Found!">
         <p>❌ Not Found</p>
       </Layout>,
     );
@@ -111,7 +111,7 @@ app.post("/", async (c) => {
       [slug],
     );
     if (existing.rows.length > 0) {
-      throw new Error("😱 Slug already taken!");
+      throw new Error("😱 Slug taken!");
     }
 
     await client.queryArray(
@@ -123,10 +123,10 @@ app.post("/", async (c) => {
 
     return c.html(
       <>
-        <Layout title="Hello Deno!">
+        <Layout title="Tinyfy - Home">
           <Form />
           <p>
-            ✅ Success <a href={shortUrl} target="_blank">{shortUrl}</a>
+            ⚡️ Tinyfied ⚡️ <a href={shortUrl} target="_blank">{shortUrl}</a>
           </p>
           <Table rows={await getTableData()} />
         </Layout>
@@ -135,7 +135,7 @@ app.post("/", async (c) => {
   } catch (e) {
     return c.html(
       <>
-        <Layout title="Hello Deno!">
+        <Layout title="Tinyfy - Home">
           <Form error={e.message} url={url} slug={slug} />
           <Table rows={await getTableData()} />
         </Layout>
