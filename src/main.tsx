@@ -10,6 +10,7 @@ import { Client } from "https://deno.land/x/postgres@v0.19.3/mod.ts";
 import { Hono } from "https://deno.land/x/hono@v4.2.4/mod.ts";
 import { Fragment, jsx } from "https://deno.land/x/hono@v4.2.4/middleware.ts";
 import * as nanoid from "https://deno.land/x/nanoid@v3.0.0/mod.ts";
+import { rateLimiter } from "npm:hono-rate-limiter";
 import { Form, Layout, Table } from "./components/index.tsx";
 
 const env = await load();
@@ -42,6 +43,7 @@ app.use(async (c, next) => {
 app.use(logger());
 app.use("/static/*", serveStatic({ root: "./" }));
 app.use("/favicon.ico", serveStatic({ path: "./public/favicon.ico" }));
+app.post("/", rateLimiter({ windowMs: 15 * 1000, limit: 1 }));
 
 async function getTableData() {
   const data = await client.queryArray(

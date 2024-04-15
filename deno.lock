@@ -6,6 +6,8 @@
       "jsr:@std/crypto@^0.220.1": "jsr:@std/crypto@0.220.1",
       "jsr:@std/encoding@^0.220.1": "jsr:@std/encoding@0.220.1",
       "npm:@types/node": "npm:@types/node@18.16.19",
+      "npm:hono": "npm:hono@4.2.4",
+      "npm:hono-rate-limiter": "npm:hono-rate-limiter@0.2.3_hono@4.2.4",
       "npm:mongodb": "npm:mongodb@6.5.0"
     },
     "jsr": {
@@ -42,6 +44,16 @@
       },
       "bson@6.6.0": {
         "integrity": "sha512-BVINv2SgcMjL4oYbBuCQTpE3/VKOSxrOA8Cj/wQP7izSzlBGVomdm+TcUd0Pzy0ytLSSDweCKQ6X3f5veM5LQA==",
+        "dependencies": {}
+      },
+      "hono-rate-limiter@0.2.3_hono@4.2.4": {
+        "integrity": "sha512-/pQIJWMd8saoySMoM3rhHNiC3XtZuZDkxBvtnPmRKrpNBZIG38k0cs+nVmBW5pc8HAmkS+I/14rbHfRObekWmw==",
+        "dependencies": {
+          "hono": "hono@4.2.4"
+        }
+      },
+      "hono@4.2.4": {
+        "integrity": "sha512-2T5Ahxh8tT0ISKCrNeA+OIwfD5W4EZ00iIMYBBCuiIivr+sOrZYOphinARSG7wL3nFsY6zkFHMMZbcR9CzEzug==",
         "dependencies": {}
       },
       "memory-pager@1.5.0": {
