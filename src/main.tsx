@@ -1,9 +1,6 @@
 /** @jsx jsx */
 /** @jsxFrag Fragment */
 
-/** @jsx jsx */
-/** @jsxFrag Fragment */
-
 import { load } from "https://deno.land/std@0.222.1/dotenv/mod.ts";
 import {
   logger,
@@ -148,5 +145,3 @@ app.post("/", async (c) => {
 });
 
 Deno.serve(app.fetch);
-
-export {};
