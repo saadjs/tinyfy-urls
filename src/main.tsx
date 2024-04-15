@@ -43,6 +43,7 @@ app.use(async (c, next) => {
 app.use(logger());
 app.use("/static/*", serveStatic({ root: "./" }));
 app.use("/favicon.ico", serveStatic({ path: "./public/favicon.ico" }));
+// @ts-ignore: hono type mismatch
 app.post("/", rateLimiter({ windowMs: 15 * 1000, limit: 1 }));
 
 async function getTableData() {
