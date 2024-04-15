@@ -1,4 +1,11 @@
-import { html } from "https://deno.land/x/hono@v3.11.7/middleware.ts";
+/** @jsx jsx */
+/** @jsxFrag Fragment */
+
+import {
+  Fragment,
+  html,
+  jsx,
+} from "https://deno.land/x/hono@v3.11.7/middleware.ts";
 import { LayoutProps } from "../types/index.ts";
 import { PropsWithChildren } from "https://deno.land/x/hono@v4.2.4/jsx/types.ts";
 

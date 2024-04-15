@@ -2,11 +2,7 @@
   "tasks": {
     "dev": "deno run --allow-net --allow-read --allow-env --watch src/main.tsx --dev",
     "start": "deno run --allow-net --allow-read --allow-env src/main.tsx",
-    "deploy": "deployctl deploy --project=snipz --env-file=.env src/main.tsx"
-  },
-  "compilerOptions": {
-    "jsx": "precompile",
-    "jsxImportSource": "hono/jsx"
+    "deploy": "deployctl deploy --allow-net --allow-read --project=snipz --env-file=.env src/main.tsx"
   },
   "imports": {
     "hono/jsx/jsx-runtime": "https://deno.land/x/hono@v4.2.4/jsx/jsx-runtime.ts"
