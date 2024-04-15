@@ -1,16 +1,17 @@
 /** @jsx jsx */
 /** @jsxFrag Fragment */
 
-import { load } from "https://deno.land/std@0.222.1/dotenv/mod.ts";
 import {
+  Client,
+  Fragment,
+  Hono,
+  jsx,
+  load,
   logger,
+  nanoid,
+  rateLimiter,
   serveStatic,
-} from "https://deno.land/x/hono@v4.2.4/middleware.ts";
-import { Client } from "https://deno.land/x/postgres@v0.19.3/mod.ts";
-import { Hono } from "https://deno.land/x/hono@v4.2.4/mod.ts";
-import { Fragment, jsx } from "https://deno.land/x/hono@v4.2.4/middleware.ts";
-import * as nanoid from "https://deno.land/x/nanoid@v3.0.0/mod.ts";
-import { rateLimiter } from "npm:hono-rate-limiter";
+} from "./deps.ts";
 import { Form, Layout, Table } from "./components/index.tsx";
 
 const env = await load();

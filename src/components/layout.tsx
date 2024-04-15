@@ -1,9 +1,7 @@
 /** @jsx jsx */
 /** @jsxFrag Fragment */
 
-import { html } from "https://deno.land/x/hono@v4.2.4/helper.ts";
-import { jsx } from "https://deno.land/x/hono@v4.2.4/middleware.ts";
-import { PropsWithChildren } from "https://deno.land/x/hono@v4.2.4/jsx/types.ts";
+import { html, jsx, PropsWithChildren } from "../deps.ts";
 import { LayoutProps } from "../types/index.ts";
 import { Footer } from "./footer.tsx";
 

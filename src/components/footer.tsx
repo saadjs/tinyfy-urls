@@ -1,4 +1,4 @@
-import { html } from "https://deno.land/x/hono@v4.2.4/helper.ts";
+import { html } from "../deps.ts";
 
 export const Footer = () =>
   html`<footer class="footer">

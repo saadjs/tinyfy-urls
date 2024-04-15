@@ -1,4 +1,4 @@
-import { html } from "https://deno.land/x/hono@v3.11.7/middleware.ts";
+import { html } from "../deps.ts";
 import { FormProps } from "../types/index.ts";
 
 export const Form = ({ error, url, slug }: FormProps) => {
