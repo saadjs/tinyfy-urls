@@ -2,7 +2,8 @@
   "tasks": {
     "dev": "deno run --allow-net --allow-read --allow-env --watch src/main.tsx --dev",
     "start": "deno run --allow-net --allow-read --allow-env src/main.tsx",
-    "deploy": "deployctl deploy --project=tinyfy  src/main.tsx"
+    "deploy:staging": "deployctl deploy --project=tinyfy  src/main.tsx",
+    "deploy:prod": "deployctl deploy --prod --project=tinyfy  src/main.tsx"
   },
   "imports": {
     "hono/jsx/jsx-runtime": "https://deno.land/x/hono@v4.2.4/jsx/jsx-runtime.ts"
