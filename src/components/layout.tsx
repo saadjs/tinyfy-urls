@@ -14,10 +14,11 @@ export const Layout = ({ title, children }: PropsWithChildren<LayoutProps>) =>
         <h3>Tinyfy: Making Links Littler and Lives Easier!</h3>
         ${children}
       </div>
-      <footer style="position: sticky; top: 100vh; display: flex; justify-content: center; align-items: center">
-        <div>Saad Bash</div>
-        <div>&ensp;•&ensp;</div>
-        <div>${new Date().getFullYear()}</div>
+      <footer style="position: sticky; top: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center">
+        <div>
+          <p>Created using Deno, Hono, Psql, JSX, and SimpleCSS.</p>
+        </div>
+        <div>Saad Bash &ensp;•&ensp; ${new Date().getFullYear()}</div>
       </footer>
     </body>
   </html>`;
