@@ -40,6 +40,7 @@ app.use(async (c, next) => {
   }
 });
 app.use(logger());
+app.use("/static/*", serveStatic({ root: "./" }));
 app.use("/favicon.ico", serveStatic({ path: "./public/favicon.ico" }));
 
 async function getTableData() {
