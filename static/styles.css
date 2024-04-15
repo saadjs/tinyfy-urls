@@ -13,5 +13,9 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center
+}
+
+/* make all icons kinda white in color */
+img {
+    filter: invert(80%);
 }

@@ -6,7 +6,7 @@ export const Table = ({ rows }: TableProps) => {
       <table>
         <tr>
           <th>Full URL</th>
-          <th>Short URL</th>
+          <th>Tinified</th>
           <th>Clicks</th>
         </tr>
         ${
