@@ -10,7 +10,7 @@ export const Form = ({ error, url, slug }: FormProps) => {
   }" required><br>
           <label for="slug">Slug (optional):</label><br>
           <input type="text" id="slug" name="slug" value="${slug || ""}"><br>
-          <input type="submit" value="Tinify ⚡️">
+          <input type="submit" value="Tinyfy ⚡️">
         </form>
         ${error ? html`<p>${error}</p>` : null}
       `;
