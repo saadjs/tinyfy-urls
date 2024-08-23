@@ -1,5 +1,5 @@
-
 export { load } from "https://deno.land/std@0.222.1/dotenv/mod.ts";
+export { Pool } from "https://deno.land/x/postgres@v0.17.0/mod.ts";
 export {
   logger,
   serveStatic,

@@ -8,5 +8,6 @@ export type FormProps = {
   slug?: string;
 };
 
-type TableRow = [string, string, string];
-export type TableProps = { rows: TableRow[] };
+export type TableProps = { rows: Array<[string, string, number]> };
+
+export type UrlRow = { url: string; slug: string; clicks: number };

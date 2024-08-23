@@ -1,7 +1,7 @@
 import { html } from "../deps.ts";
 
 export const Footer = () =>
-  html`<footer class="footer">
+    html`<footer class="footer">
             <div>
                 <p>Created using Deno, Hono, Psql, JSX, and SimpleCSS.</p>
             </div>

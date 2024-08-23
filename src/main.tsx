@@ -2,30 +2,18 @@
 /** @jsxFrag Fragment */
 
 import {
-  Client,
   Fragment,
   Hono,
   jsx,
-  load,
   logger,
   nanoid,
   rateLimiter,
   serveStatic,
 } from "./deps.ts";
 import { Form, Layout, Table } from "./components/index.tsx";
-
-const env = await load();
-const PG_URL = env["PG_URL"];
-
-if (!PG_URL) {
-  console.error("PG_URL is required");
-  Deno.exit(1);
-}
-
-const client = new Client(PG_URL);
-console.log("Connecting to database...");
-await client.connect();
-console.log("Connected to database?", client.connected);
+import { validateSlug, validateUrl } from "./util/validation.ts";
+import { query } from "./db.ts";
+import { UrlRow } from "./types/index.ts";
 
 const app = new Hono();
 
@@ -47,11 +35,16 @@ app.use("/favicon.ico", serveStatic({ path: "./public/favicon.ico" }));
 // @ts-ignore: hono type mismatch
 app.post("/", rateLimiter({ windowMs: 15 * 1000, limit: 1 }));
 
-async function getTableData() {
-  const data = await client.queryArray(
+async function getTableData(): Promise<Array<[string, string, number]>> {
+  const data = await query(
     "SELECT url, slug, clicks FROM urls ORDER BY created_at DESC",
-  );
-  const rows = data.rows as [string, string, string][];
+    [],
+  ) as { rows: UrlRow[] };
+
+  const rows: Array<[string, string, number]> = data.rows.map((
+    row,
+  ) => [row.url, row.slug, row.clicks]);
+
   return rows;
 }
 
@@ -68,10 +61,10 @@ app.get("/", async (c) => {
 
 app.get("/:slug", async (c) => {
   const slug = c.req.param("slug");
-  const data = await client.queryArray(
+  const data = await query(
     `SELECT url FROM urls WHERE slug = $1`,
     [slug],
-  );
+  ) as { rows: Array<{ url: string }> };
   if (data.rows.length === 0) {
     return c.html(
       <Layout title="Tinyfy - Page Not Found!">
@@ -79,8 +72,8 @@ app.get("/:slug", async (c) => {
       </Layout>,
     );
   }
-  const url = data.rows[0][0] as string;
-  await client.queryArray(
+  const url = data.rows[0].url;
+  await query(
     `UPDATE urls SET clicks = clicks + 1 WHERE slug = $1`,
     [slug],
   );
@@ -100,9 +93,7 @@ app.post("/", async (c) => {
     }
 
     // Check if URL is valid
-    try {
-      new URL(url);
-    } catch (e) {
+    if (!validateUrl(url)) {
       throw new Error("Invalid URL");
     }
 
@@ -110,7 +101,11 @@ app.post("/", async (c) => {
       slug = nanoid.nanoid(5).toLowerCase();
     }
 
-    const existing = await client.queryArray(
+    if (!validateSlug(slug)) {
+      throw new Error("Invalid slug");
+    }
+
+    const existing = await query(
       `SELECT * FROM urls WHERE slug = $1`,
       [slug],
     );
@@ -118,7 +113,7 @@ app.post("/", async (c) => {
       throw new Error("😱 Slug taken!");
     }
 
-    await client.queryArray(
+    await query(
       `INSERT INTO urls (url, slug) VALUES ($1, $2)`,
       [url, slug],
     );
