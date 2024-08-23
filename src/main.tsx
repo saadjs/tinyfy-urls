@@ -92,7 +92,6 @@ app.post("/", async (c) => {
   let slug;
   try {
     const body = await c.req.parseBody();
-    console.log({ body });
     url = body.url as string;
     slug = body.slug as string;
 
